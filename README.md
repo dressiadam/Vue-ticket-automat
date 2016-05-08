@@ -2,6 +2,7 @@
 
 > Practice - In Progress
 
+[alt tag](https://raw.githubusercontent.com/dressiadam/Vue-ticket-automat/master/src/sample/select.PNG)
 ## detail
 - vue
 - vue loader
