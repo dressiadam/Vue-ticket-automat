@@ -6,7 +6,7 @@
         </span>
     </a>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 $main_page_color: #412DA9;
 $main_page_background: #BFE0F1;
 

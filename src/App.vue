@@ -10,12 +10,13 @@
   import SelectPage from './pages/SelectPage.vue'
   import SummaryPage from './pages/SummaryPage.vue'
   import PayingPage from './pages/PayingPage.vue'
+  import FooterBar from './components/FooterBar.vue'
+  import HeaderBar from './components/HeaderBar.vue'
   import store from './vuex/store'
   export default {
     store,
-    components: { SelectPage, SummaryPage, PayingPage }
+    components: { SelectPage, SummaryPage, PayingPage, FooterBar, HeaderBar }
   }
-</script>
 </script>
 <style lang="scss">
   body {

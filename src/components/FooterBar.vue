@@ -4,11 +4,11 @@
             <var>Total Price : {{ total | currency }}</var>
         </div>
         <div class="footer_wrapper">
-            <a v-link="{ path: '/' }" class="back_button navigation_button">
-                 <i class="fa fa-arrow-circle-left"></i>
+            <a v-link="getConditionalPreviousPageRoute" class="back_button navigation_button">
+                <i class="fa fa-arrow-circle-left"></i>
                 <span>Back</span>
             </a>
-            <a v-link="{ path: '/summarypage' }" class="next_button navigation_button" :class="{ 'active': isPagingEnabled }">
+            <a v-link="getConditionalNextPageRoute" class="next_button navigation_button" :class="{ 'active': isPagingEnabled }">
                 <span>Next</span>
                 <i class="fa fa-arrow-circle-right"></i>
             </a>
@@ -17,7 +17,6 @@
 </template>
 <script>
     import { cartTickets } from '../vuex/getters'
-
     export default {
       vuex: {
         getters: {
@@ -33,6 +32,40 @@
         isPagingEnabled () {
           // @TODO if the cart is not empty
           return true
+        },
+        getConditionalPreviousPageRoute () {
+          let currentPreviousPage
+          switch (this.$router._currentRoute.path) {
+            case '/selectpage':
+              currentPreviousPage = '/'
+              break
+            case '/summarypage':
+              currentPreviousPage = '/selectpage'
+              break
+            case '/payingpage':
+              currentPreviousPage = '/summarypage'
+              break
+            default:
+              currentPreviousPage = '/'
+          }
+          return currentPreviousPage
+        },
+        getConditionalNextPageRoute () {
+          let currentNextPage
+          switch (this.$router._currentRoute.path) {
+            case '/selectpage':
+              currentNextPage = '/summarypage'
+              break
+            case '/summarypage':
+              currentNextPage = '/payingpage'
+              break
+            case '/payingpage':
+              currentNextPage = '/'
+              break
+            default:
+              currentNextPage = '/'
+          }
+          return currentNextPage
         }
       }
     }
@@ -42,58 +75,57 @@
     $navigation_button_background: #9899A6;
     $navigation_button_active_background: #2A2857;
     $navigation_button_color: #DFE8F2;
-
     footer {
         position: fixed;
         width: 100%;
         bottom: 6vw;
         right: 1vw;
-    .footer_wrapper {
-        position: absolute;
-        right: 3.5vw;
-        top: 0;
-    .navigation_button {
-        display: inline-block;
-        margin: 0 0 0 2vw;
-        height: 3.5vw;
-        width: 20vw;
-        background: $navigation_button_background;
-        color: $navigation_button_color;
-        font: 1.7vw/3.5vw 'Arial',sans-serif;
-        padding: 0 0.6vw;
-    span {
-        margin: 0.5vw;
-    }
-    &.active {
-         background: $navigation_button_active_background;
-         color: $white;
-     }
-    &:hover {
-         cursor: pointer;
-     }
-    }
-    .next_button {
-        text-align: end;
-    }
-    }
+        .footer_wrapper {
+            position: absolute;
+            right: 3.5vw;
+            top: 0;
+            .navigation_button {
+                display: inline-block;
+                margin: 0 0 0 2vw;
+                height: 3.5vw;
+                width: 20vw;
+                background: $navigation_button_background;
+                color: $navigation_button_color;
+                font: 1.7vw/3.5vw 'Arial',sans-serif;
+                padding: 0 0.6vw;
+                span {
+                    margin: 0.5vw;
+                }
+                &.active {
+                     background: $navigation_button_active_background;
+                     color: $white;
+                 }
+                &:hover {
+                     cursor: pointer;
+                }
+            }
+            .next_button {
+                text-align: end;
+            }
+        }
     }
     .total_price_wrapper {
         display: none;
         position: fixed;
         right: 4.5vw;
         bottom: 6vw;
-    &.active {
-         display: block;
-     }
-    var {
-        text-align: end;
-        font-size: 2vw;
-    &.summary_page {
-         font-size: 4vw;
-     }
-    &.paying_page {
-         display: none;
-     }
-    }
+        &.active {
+            display: block;
+        }
+        var {
+            text-align: end;
+            font-size: 2vw;
+            &.summary_page {
+             font-size: 4vw;
+            }
+            &.paying_page {
+                display: none;
+            }
+        }
     }
 </style>
